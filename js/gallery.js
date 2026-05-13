@@ -1,58 +1,74 @@
-const movies = [
+const countries = [
   {
-    poster: 'https://image.tmdb.org/t/p/w300/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg',
-    original: 'https://image.tmdb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg',
-    title: 'The Shawshank Redemption',
+    flag: 'https://flagcdn.com/w160/tr.png',
+    original: 'https://flagcdn.com/w640/tr.png',
+    name: 'Türkiye',
   },
-  
-  
   {
-    poster: 'https://image.tmdb.org/t/p/w300/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg',
-    original: 'https://image.tmdb.org/t/p/original/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg',
-    title: 'The Dark Knight',
+    flag: 'https://flagcdn.com/w160/jp.png',
+    original: 'https://flagcdn.com/w640/jp.png',
+    name: 'Japonya',
   },
-  
   {
-    poster: 'https://image.tmdb.org/t/p/w300/oU7Oq2kFAAlGqbU4VoAE36g4hoI.jpg',
-    original: 'https://image.tmdb.org/t/p/original/oU7Oq2kFAAlGqbU4VoAE36g4hoI.jpg',
-    title: 'Forrest Gump',
+    flag: 'https://flagcdn.com/w160/br.png',
+    original: 'https://flagcdn.com/w640/br.png',
+    name: 'Brezilya',
+  },
+  {
+    flag: 'https://flagcdn.com/w160/de.png',
+    original: 'https://flagcdn.com/w640/de.png',
+    name: 'Almanya',
+  },
+  {
+    flag: 'https://flagcdn.com/w160/fr.png',
+    original: 'https://flagcdn.com/w640/fr.png',
+    name: 'Fransa',
+  },
+  {
+    flag: 'https://flagcdn.com/w160/it.png',
+    original: 'https://flagcdn.com/w640/it.png',
+    name: 'İtalya',
   },
 ];
 
 
 const galleryElems = document.querySelector('.gallery');
 
-galleryElems.innerHTML = movies
-.map(({poster,original,title}) => 
+galleryElems.innerHTML = countries
+.map(({flag,original,name}) =>
     `<li class="gallery-item">
-  <a class="gallery-link" href="${original}">
-    <img class="gallery-image" 
-    src="${poster}" 
-    data-source="${original}" alt="${title}" />
-  </a>
-</li>`).join('');
+        <a class="gallery-link" href="${original}">
+            <img class="gallery-image" 
+            src="${flag}" 
+            data-source="${original}" 
+            alt="${name}" />
+        </a>
+    </li>`).join('');
 
 
-galleryElems.addEventListener('click', event =>{
+galleryElems.addEventListener('click',event =>{
     event.preventDefault();
 
-    if(event.target.nodeName !== 'IMG') return;
+    if(event.target.nodeName !== 'IMG'){
+        return;
+    }
 
-    const largeImage = event.target.dataset.source;
+    const largeImg = event.target.dataset.source;
 
-    const instance =basicLightbox.create(`<img src="${largeImage}">`);
+    const instance = basicLightbox.create(`<img src="${largeImg}">`);
 
     instance.show();
+
 
     function onKeyDown(event){
         if(event.key === 'Escape'){
             instance.close();
-
-            document.removeEventListener('keydown', onKeyDown );
         }
+        document.removeEventListener('keydown', onKeyDown);
     }
-    
-    document.addEventListener('keydown',onKeyDown);
 
-
+    document.addEventListener('keydown', onKeyDown);
 });
+
+
+
